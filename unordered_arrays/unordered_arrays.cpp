@@ -95,6 +95,8 @@ public:
 	}
 
 	void insertionSortAsc() {
+		assert(m_array != NULL);
+
 		if (numElements >= 2)
 		{
 			for (int i = 1; i < numElements; ++i)
@@ -102,10 +104,31 @@ public:
 				int temp = m_array[i];
 				int j = i;
 
-				while (j >= 0 && m_array[j - 1] > temp)
+				while (j > 0 && m_array[j - 1] > temp)
 				{
 					--j;
 					m_array[j+1] = m_array[j];
+				}
+
+				m_array[j] = temp;
+			}
+		}
+	}
+
+	void insertionSortDsc() {
+		assert(m_array != NULL);
+		
+		if (numElements >= 2)
+		{
+			for (int i = 1; i < numElements; ++i)
+			{
+				int temp = m_array[i];
+				int j = i;
+
+				while (j > 0 && m_array[j - 1] < temp)
+				{
+					--j;
+					m_array[j + 1] = m_array[j];
 				}
 
 				m_array[j] = temp;
@@ -162,6 +185,20 @@ public:
 	}
 
 	int binarySearch(int item) {
+		int hi = numElements;
+		int lo = 0;
+
+		while (hi > lo)
+		{
+			int mid = (hi + lo) / 2;
+
+			if (m_array[mid] == item)
+				return mid;
+			else if (m_array[mid] < item)
+				lo = mid + 1;
+			else
+				hi = mid - 1;
+		}
 		return -1;
 	}
 
@@ -220,11 +257,16 @@ int main() {
 	cout << u[2] << endl;
 	u.listItems();
 
-	u.insertionSortAsc();
+	u.insertionSortDsc();
 	u.listItems();
 
-	u.selectionSortDsc();
-	u.listItems();
+	u.insertionSortAsc();
+	u.listItems();	
+
+	cout << u.binarySearch(9) << endl;
+	cout << u.binarySearch(8) << endl;
+	cout << u.binarySearch(13) << endl;
+	cout << u.binarySearch(24) << endl;
 
 	return 0;
 }
