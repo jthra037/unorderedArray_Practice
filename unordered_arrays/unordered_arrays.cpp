@@ -184,6 +184,8 @@ public:
 
 	}
 
+
+	// this is an efficient searhing algorithm for sorted arrays
 	int binarySearch(int item) {
 		return -1;
 	}
