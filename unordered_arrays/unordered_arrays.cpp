@@ -109,13 +109,52 @@ public:
 				}
 
 				m_array[j] = temp;
-				listItems();
 			}
 		}
 	}
 
 	void selectionSortAsc() {
+		assert(m_array != NULL);
 
+		for (int i = 0; i < numElements; ++i)
+		{
+			int pos = i;
+
+			for (int j = i; j < numElements; ++j)
+			{
+				if (m_array[j] < m_array[pos])
+					pos = j;
+			}
+
+			if (pos != i)
+			{
+				int temp = m_array[i];
+				m_array[i] = m_array[pos];
+				m_array[pos] = temp;
+			}
+		}
+	}
+
+	void selectionSortDsc() {
+		assert(m_array != NULL);
+
+		for (int i = 0; i < numElements; ++i)
+		{
+			int pos = i;
+
+			for (int j = i; j < numElements; ++j)
+			{
+				if (m_array[j] > m_array[pos])
+					pos = j;
+			}
+
+			if (pos != i)
+			{
+				int temp = m_array[i];
+				m_array[i] = m_array[pos];
+				m_array[pos] = temp;
+			}
+		}
 	}
 
 	void bubbleSortAsc() {
@@ -182,6 +221,9 @@ int main() {
 	u.listItems();
 
 	u.insertionSortAsc();
+	u.listItems();
+
+	u.selectionSortDsc();
 	u.listItems();
 
 	return 0;
