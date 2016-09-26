@@ -111,8 +111,6 @@ public:
 				}
 
 				m_array[j] = temp;
-<<<<<<< HEAD
-=======
 			}
 		}
 	}
@@ -134,7 +132,6 @@ public:
 				}
 
 				m_array[j] = temp;
->>>>>>> feature/insertionSort
 			}
 		}
 	}
@@ -249,13 +246,8 @@ int main() {
 	u.insertionSortDsc();
 	u.listItems();
 
-<<<<<<< HEAD
-	u.selectionSortDsc();
-	u.listItems();
-=======
 	u.insertionSortAsc();
 	u.listItems();	
->>>>>>> feature/insertionSort
 
 	return 0;
 }
