@@ -115,7 +115,27 @@ public:
 	}
 
 	void selectionSortAsc() {
+		assert(m_array != NULL);
 
+		for (int i = 0; i < numElements; ++i)
+		{
+			int pos = i;
+
+			for (int j = i; j < numElements; ++j)
+			{
+				if (m_array[j] < m_array[pos])
+					pos = j;
+			}
+
+			if (pos != i)
+			{
+				int temp = m_array[i];
+				m_array[i] = m_array[pos];
+				m_array[pos] = temp;
+			}
+
+			listItems();
+		}
 	}
 
 	void bubbleSortAsc() {
