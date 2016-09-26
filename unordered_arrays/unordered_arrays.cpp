@@ -95,6 +95,8 @@ public:
 	}
 
 	void insertionSortAsc() {
+		assert(m_array != NULL);
+
 		if (numElements >= 2)
 		{
 			for (int i = 1; i < numElements; ++i)
@@ -102,13 +104,37 @@ public:
 				int temp = m_array[i];
 				int j = i;
 
-				while (j >= 0 && m_array[j - 1] > temp)
+				while (j > 0 && m_array[j - 1] > temp)
 				{
 					--j;
 					m_array[j+1] = m_array[j];
 				}
 
 				m_array[j] = temp;
+<<<<<<< HEAD
+=======
+			}
+		}
+	}
+
+	void insertionSortDsc() {
+		assert(m_array != NULL);
+		
+		if (numElements >= 2)
+		{
+			for (int i = 1; i < numElements; ++i)
+			{
+				int temp = m_array[i];
+				int j = i;
+
+				while (j > 0 && m_array[j - 1] < temp)
+				{
+					--j;
+					m_array[j + 1] = m_array[j];
+				}
+
+				m_array[j] = temp;
+>>>>>>> feature/insertionSort
 			}
 		}
 	}
@@ -220,11 +246,16 @@ int main() {
 	cout << u[2] << endl;
 	u.listItems();
 
-	u.insertionSortAsc();
+	u.insertionSortDsc();
 	u.listItems();
 
+<<<<<<< HEAD
 	u.selectionSortDsc();
 	u.listItems();
+=======
+	u.insertionSortAsc();
+	u.listItems();	
+>>>>>>> feature/insertionSort
 
 	return 0;
 }
