@@ -95,7 +95,23 @@ public:
 	}
 
 	void insertionSortAsc() {
+		if (numElements >= 2)
+		{
+			for (int i = 1; i < numElements; ++i)
+			{
+				int temp = m_array[i];
+				int j = i;
 
+				while (j >= 0 && m_array[j - 1] > temp)
+				{
+					--j;
+					m_array[j+1] = m_array[j];
+				}
+
+				m_array[j] = temp;
+				listItems();
+			}
+		}
 	}
 
 	void selectionSortAsc() {
@@ -165,6 +181,8 @@ int main() {
 	cout << u[2] << endl;
 	u.listItems();
 
+	u.insertionSortAsc();
+	u.listItems();
 
 	return 0;
 }
