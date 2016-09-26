@@ -4,3 +4,4 @@ Debug/unordered_arrays.exe
 Debug/
 *.opendb
 *.db
+ipch/
