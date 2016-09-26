@@ -184,8 +184,6 @@ public:
 
 	}
 
-
-	// this is an efficient searhing algorithm for sorted arrays
 	int binarySearch(int item) {
 		int hi = numElements;
 		int lo = 0;
@@ -264,6 +262,11 @@ int main() {
 
 	u.insertionSortAsc();
 	u.listItems();	
+
+	cout << u.binarySearch(9) << endl;
+	cout << u.binarySearch(8) << endl;
+	cout << u.binarySearch(13) << endl;
+	cout << u.binarySearch(24) << endl;
 
 	return 0;
 }
