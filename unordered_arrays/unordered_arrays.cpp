@@ -170,7 +170,6 @@ public:
 };
 
 
-
 class UnorderedArray
 {
 private:
@@ -451,6 +450,8 @@ int main() {
 
 	uArray.remove(1);
 	uArray.listItems();
+
+	cout << "Making an ordered integer array." << endl;
 
 	return 0;
 }
