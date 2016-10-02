@@ -194,7 +194,13 @@ public:
 		else 
 		{
 			// Use a modified insertion sort to insert the new element.
+			
 			/******** First check if it's already in the array ********/
+			if (search(val) != -1)
+			{
+				cout << "Element already contained in the array. Did not push." << endl;
+				return;
+			}
 
 			++numElements; // Create a space at the end of the array.
 			// For each element in the array, starting at the end
@@ -216,6 +222,29 @@ public:
 			// the smallest thing in the array.
 			m_array[0] = val;
 		}
+	}
+
+	/// Override intArray search to use binary search, since all elements are sorted.
+	int search(int val) {
+		// We have the top and bottom of the array.
+		int hi = numElements;
+		int lo = 0;
+
+		// While the head of our search is still before the tail 
+		while (hi > lo)
+		{
+			// find the middle.
+			int mid = (hi + lo) / 2;
+
+			// If our search value is in the middle
+			if (m_array[mid] == val)
+				return mid; // return it's position.
+			else if (m_array[mid] < val) // Higher?
+				lo = mid + 1; // Search the upper half only.
+			else // Lower?
+				hi = mid - 1; // Search the lower half only.
+		}
+		return -1; // -1 is standard for "didn't work".
 	}
 };
 
@@ -520,6 +549,12 @@ int main() {
 	oArray.listItems();
 
 	oArray.remove(1);
+	oArray.listItems();
+
+	oArray.push(42);
+	cout << oArray.getSize() << endl;
+	oArray.listItems();
+	oArray.push(78);
 	oArray.listItems();
 
 	return 0;
