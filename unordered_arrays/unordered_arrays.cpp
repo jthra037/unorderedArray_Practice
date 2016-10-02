@@ -4,7 +4,7 @@
 #include<cstring>
 using namespace std;
 
-///Stuff up here is the same as all the stuff in class. This is how you set up a home made array.
+///Stuff up here is the same as all the stuff in lab. This is how you set up a home made array.
 class intArray
 {
 protected: //This is the notable exception.
@@ -49,6 +49,14 @@ public:
 	///Gets the number of elements that can be held in the array
 	int getMaxSize() { return maxSize; }
 
+	/// There is also this.
+	/// I copied this out of my lab work, but I'm not fully sure what it is 
+	/// at the moment of me writing this so I haven't touched it at all.
+	void DisposeObject() {
+		// I mean it seems pretty self explanatory, I'm just not sure what I'll use it for yet.
+		delete this; 
+	}
+
 	///Default push, puts the element to be inserted in the last position of array
 	///if there is space.
 	void push(int val)
@@ -57,7 +65,7 @@ public:
 
 		if (numElements >= maxSize) // If the array is full
 		{
-			cout << " Array full item not inserted";
+			cout << "Array full. Item not inserted." << endl;
 		}
 		else
 		{
@@ -134,6 +142,32 @@ public:
 	}
 };
 
+///This is my new inherited class implementing an unordered integer array.
+class uIntArray : public intArray
+{
+public:
+	///Non-default constructor taking size 
+	///and calling base constructor with that size.
+	uIntArray(int size) : intArray(size) {};
+	
+	///Override intArray.remove() with an efficient version.
+	void remove(int index)
+	{
+		assert(m_array != NULL); // No null pointers.
+
+		// If index out of bounds
+		if (index >= numElements)
+		{
+			cout << "Index out of bounds." << endl;
+			return;
+		}
+
+		// If the array has more than one element 
+		if (numElements > 1)
+			m_array[index] = m_array[numElements - 1]; // copy last item into the position to be deleted.
+		numElements--; // Decrement the number of accessible elements.
+	}
+};
 
 
 class UnorderedArray
@@ -372,27 +406,52 @@ public:
 };
 
 int main() {
-	UnorderedArray u = UnorderedArray(4);
-	cout << u.GetSize() << endl;
-	cout << u.GetMaxSize() << endl;
-	u.listItems();
-	u.push(34);
-	u.push(23);
-	u.push(8);
-	u.push(24);
-	cout << u[2] << endl;
-	u.listItems();
+	cout << "Making an integer array." << endl;
 
-	u.insertionSortDsc();
-	u.listItems();
+	intArray myArray = intArray(6);
+	myArray.listItems();
 
-	u.insertionSortAsc();
-	u.listItems();	
+	cout << myArray.getSize() << endl;
+	cout << myArray.getMaxSize() << endl;
 
-	cout << u.binarySearch(9) << endl;
-	cout << u.binarySearch(8) << endl;
-	cout << u.binarySearch(13) << endl;
-	cout << u.binarySearch(24) << endl;
+	myArray.push(91);
+	myArray.push(23);
+	myArray.push(6);
+	myArray.push(42);
+	myArray.push(50);
+	myArray.push(13);
+	
+	myArray.push(7);
+
+	cout << myArray.getSize() << endl;
+	myArray.listItems();
+
+	myArray.remove(1);
+	myArray.listItems();
+
+	cout << "Making an unordered integer array." << endl;
+	uIntArray uArray = uIntArray(6);
+	uArray.listItems();
+
+	cout << uArray.getSize() << endl;
+	cout << uArray.getMaxSize() << endl;
+
+	uArray.push(91);
+	uArray.push(23);
+	uArray.push(6);
+	uArray.push(42);
+	uArray.push(50);
+	uArray.push(13);
+	
+	uArray.push(7);
+
+	cout << uArray.getSize() << endl;
+	uArray.listItems();
+
+	uArray.remove(1);
+	uArray.listItems();
+
+	cout << "Making an ordered integer array." << endl;
 
 	return 0;
 }
