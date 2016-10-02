@@ -176,6 +176,7 @@ public:
 	// Constructor calling parent constructor.
 	oIntArray(int size) : intArray(size) {};
 
+	///Override push from intArray to always keep elements sorted.
 	void push(int val)
 	{
 		assert(m_array != NULL); //No null pointers.
