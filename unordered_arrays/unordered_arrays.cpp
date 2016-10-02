@@ -4,6 +4,38 @@
 #include<cstring>
 using namespace std;
 
+///Stuff up here is the same as all the stuff in class. This is how you set up a home made array.
+class intArray
+{
+private:
+	int *m_array;
+
+	int maxSize;
+	int numElements;
+
+public:
+	///Here be the constructor for the new intArray class
+	intArray(int size) : m_array(NULL), maxSize(0), numElements(0)
+	{
+		if (size)
+		{
+			maxSize = size;
+			m_array = new int[maxSize];
+			memset(m_array, 0, sizeof(int) * maxSize); //this sets all items in the array to 0
+		}
+	}
+	
+	///Here be a destructor for the new intArray class
+	~intArray()
+	{
+		if (m_array != NULL)
+		{
+			delete[] m_array;
+			m_array = NULL;
+		}
+	}
+};
+
 class UnorderedArray
 {
 private:
