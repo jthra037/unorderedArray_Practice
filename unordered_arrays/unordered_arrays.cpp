@@ -1,14 +1,140 @@
-// unordered_arrays.cpp : Defines the entry point for the console application.
-//
-
-
-//This is a change.
-
 #include "stdafx.h"
 #include <iostream>
 #include <cassert>
 #include<cstring>
 using namespace std;
+
+///Stuff up here is the same as all the stuff in class. This is how you set up a home made array.
+class intArray
+{
+protected: //This is the notable exception.
+	int *m_array;
+
+	int maxSize;
+	int numElements;
+
+public:
+	///Here be the constructor for the new intArray class
+	intArray(int size) : m_array(NULL), maxSize(0), numElements(0)
+	{
+		if (size)
+		{
+			maxSize = size;
+			m_array = new int[maxSize];
+			memset(m_array, 0, sizeof(int) * maxSize); //this sets all items in the array to 0
+		}
+	}
+	
+	///Here be a destructor for the new intArray class
+	~intArray()
+	{
+		if (m_array != NULL)
+		{
+			delete[] m_array;
+			m_array = NULL;
+		}
+	}
+
+	///Access operator overload for intArray
+	int& operator[](int index)
+	{
+		assert(m_array != NULL && index < numElements);
+		return m_array[index];
+	}
+
+	///"Removes" all items from the array
+	void clear() { numElements = 0; }
+	///Gets the number of elements held in the array
+	int getSize() { return numElements; }
+	///Gets the number of elements that can be held in the array
+	int getMaxSize() { return maxSize; }
+
+	///Default push, puts the element to be inserted in the last position of array
+	///if there is space.
+	void push(int val)
+	{
+		assert(m_array != NULL); //No null pointers.
+
+		if (numElements >= maxSize) // If the array is full
+		{
+			cout << " Array full item not inserted";
+		}
+		else
+		{
+			m_array[numElements] = val; // or set value in the last position
+			numElements++; //and increment that position.
+		}
+	}
+
+	///Removes the last item that was in the array
+	///if there is one.
+	void pop()
+	{
+		// If there are elements in the array
+		if (numElements > 0)
+			numElements--; // decrement the number of elements accessible.
+		else
+			cout << " Array empty - nothing to remove";
+	}
+
+	///Default remove function. 
+	///Shifts down all elements after index, keeping order.
+	void remove(int index)
+	{
+		assert(m_array != NULL); // No null pointers.
+
+		//Is index out of bounds?
+		if (index >= numElements)
+		{
+			cout << "Index out of bounds." << endl;
+			return;
+		}
+
+		//Starting at index to be removed, until the end of the array
+		for (int k = index; k < numElements - 1; k++)
+		{
+			m_array[k] = m_array[k + 1]; // move elements down one
+		}
+		numElements--; // then decrement the number of accessible items.
+	}
+
+	///Default search.
+	///Uses linear search, very safe, very slow.
+	int search(int val)
+	{
+		assert(m_array != NULL); //No null pointers.
+
+		// For every element in the array
+		for (int i = 0; i < numElements; i++)
+		{
+			if (m_array[i] == val) // is it this one?
+				return i;
+		}
+
+		return -1; // -1 is standard for "didn't work"
+	}
+
+	///List items in the array. 
+	///Print directly to console.
+	void listItems() {
+		assert(m_array != NULL); // No null pointers.
+
+		// If there are elements in the array
+		if (numElements > 0) 
+		{
+			// print the contents of each to the console.
+			for (int x = 0; x < numElements; ++x) 
+			{
+				cout << m_array[x] << "   ";
+			}
+			cout << endl;
+		}
+		else
+			cout << "List Empty.." << endl;
+	}
+};
+
+
 
 class UnorderedArray
 {
