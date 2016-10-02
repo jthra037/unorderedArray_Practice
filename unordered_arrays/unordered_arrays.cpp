@@ -7,7 +7,7 @@ using namespace std;
 ///Stuff up here is the same as all the stuff in class. This is how you set up a home made array.
 class intArray
 {
-private:
+protected: //This is the notable exception.
 	int *m_array;
 
 	int maxSize;
