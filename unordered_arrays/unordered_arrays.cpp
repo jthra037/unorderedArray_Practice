@@ -1,9 +1,3 @@
-// unordered_arrays.cpp : Defines the entry point for the console application.
-//
-
-
-//This is a change.
-
 #include "stdafx.h"
 #include <iostream>
 #include <cassert>
