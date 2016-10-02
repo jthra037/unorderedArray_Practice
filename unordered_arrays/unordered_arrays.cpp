@@ -34,6 +34,20 @@ public:
 			m_array = NULL;
 		}
 	}
+
+	///Access operator overload for intArray
+	int& operator[](int index)
+	{
+		assert(m_array != NULL && index < numElements);
+		return m_array[index];
+	}
+
+	///"Removes" all items from the array
+	void clear() { numElements = 0; }
+	///Gets the number of elements held in the array
+	int getSize() { return numElements; }
+	///Gets the number of elements that can be held in the array
+	int getMaxSize() { return maxSize; }
 };
 
 class UnorderedArray
