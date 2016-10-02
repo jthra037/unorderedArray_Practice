@@ -169,11 +169,54 @@ public:
 	}
 };
 
+/// Child class of intArray, implementing an ordered integer array.
 class oIntArray : public intArray
 {
 public:
+	// Constructor calling parent constructor.
 	oIntArray(int size) : intArray(size) {};
 
+	void push(int val)
+	{
+		assert(m_array != NULL); //No null pointers.
+
+		if (numElements >= maxSize) // If the array is full
+		{
+			cout << "Array full. Item not inserted." << endl;
+		}
+		// Else if array has nothing in it.
+		else if (numElements == 0)
+		{
+			m_array[numElements] = val; // set value in the last position
+			numElements++; //and increment that position.
+		}
+		// But if you really have to put this in the array in the correct place...
+		else 
+		{
+			// Use a modified insertion sort to insert the new element.
+			/******** First check if it's already in the array ********/
+
+			++numElements; // Create a space at the end of the array.
+			// For each element in the array, starting at the end
+			for (int i = numElements - 1; i >= 1; --i)
+			{
+				// If the new value is less than the current value
+				if (m_array[i - 1] > val)
+				{
+					m_array[i] = m_array[i - 1]; // move it up in the array.
+				}
+				// Otherwise
+				else
+				{
+					m_array[i] = val; // on the last duplicated, or the newest spot.
+					return;
+				}
+			}
+			// We made it to the bottom without placing the element, means it's 
+			// the smallest thing in the array.
+			m_array[0] = val;
+		}
+	}
 };
 
 class UnorderedArray
@@ -458,6 +501,26 @@ int main() {
 	uArray.listItems();
 
 	cout << "Making an ordered integer array." << endl;
+	oIntArray oArray = oIntArray(6);
+	oArray.listItems();
+
+	cout << oArray.getSize() << endl;
+	cout << oArray.getMaxSize() << endl;
+
+	oArray.push(23);
+	oArray.push(91);
+	oArray.push(6);
+	oArray.push(42);
+	oArray.push(50);
+	oArray.push(13);
+
+	oArray.push(7);
+
+	cout << oArray.getSize() << endl;
+	oArray.listItems();
+
+	oArray.remove(1);
+	oArray.listItems();
 
 	return 0;
 }
