@@ -140,6 +140,29 @@ public:
 		else
 			cout << "List Empty.." << endl;
 	}
+
+	void resize(int newSize)
+	{
+		assert(m_array != NULL);
+
+		// We NEED this much space.
+		int numSpace = (newSize < numElements) ? newSize : numElements; // Whichever is less, newSize or the number of elements
+
+		if (newSize < maxSize)
+		{
+			cout << "New size is smaller. Array contents may be missing after." << endl;
+		}
+
+		int *n_array;
+		n_array = new int[newSize];
+		memset(n_array, 0, sizeof(int) * newSize); //this sets all items in the array to 0
+		maxSize = newSize;
+
+		memcpy(n_array, m_array, sizeof(int) * numSpace);
+
+		delete[] m_array;
+		m_array = n_array;
+	}
 };
 
 ///This is my new inherited class implementing an unordered integer array.
@@ -252,7 +275,7 @@ public:
 int main() {
 	cout << "Making an integer array." << endl;
 
-	intArray myArray = intArray(6);
+	intArray myArray = intArray(200000);
 	myArray.listItems();
 
 	cout << myArray.getSize() << endl;
@@ -264,14 +287,18 @@ int main() {
 	myArray.push(42);
 	myArray.push(50);
 	myArray.push(13);
+	for (int i = myArray.getSize(); i < 100000; ++i)
+	{
+		myArray.push(i);
+	}
 	
 	myArray.push(7);
 
 	cout << myArray.getSize() << endl;
-	myArray.listItems();
+	//myArray.listItems();
 
 	myArray.remove(1);
-	myArray.listItems();
+	//myArray.listItems();
 
 	cout << "Making an unordered integer array." << endl;
 	uIntArray uArray = uIntArray(6);
@@ -322,6 +349,17 @@ int main() {
 	oArray.listItems();
 	oArray.push(78);
 	oArray.listItems();
+
+	cout << "Trying to resize array." << endl;
+	myArray.push(100);
+	cout << myArray.getMaxSize() << endl;
+	//myArray.listItems();
+	myArray.resize(8);
+	cout << myArray.getMaxSize() << endl;
+	//myArray.listItems();
+	myArray.push(777);
+	myArray.listItems();
+	cout << myArray.getSize() << endl;
 
 	return 0;
 }
