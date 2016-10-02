@@ -169,6 +169,12 @@ public:
 	}
 };
 
+class oIntArray : public intArray
+{
+public:
+	oIntArray(int size) : intArray(size) {};
+
+};
 
 class UnorderedArray
 {
