@@ -140,6 +140,37 @@ public:
 		else
 			cout << "List Empty.." << endl;
 	}
+
+	void resize(int newSize)
+	{
+		assert(m_array != NULL);
+
+		// We NEED this much space.
+		int numSpace = (newSize < numElements) ? newSize : numElements; // Whichever is less, newSize or the number of elements
+
+		if (newSize < maxSize)
+		{
+			cout << "New size is smaller." << endl;
+			// If the smaller size is less than the number of elements
+			if (newSize < numElements)
+			{
+				// warn and adjust numElements.
+				cout << "Some elements will be missing." << endl;
+				numElements = newSize;
+			}
+		}
+
+		int *n_array; // Get a new pointer.
+		n_array = new int[newSize]; // Make a new array of the correct size with it.
+		memset(n_array, 0, sizeof(int) * newSize); // Sets all items in the array to 0
+		maxSize = newSize; // Adjust the maxSize
+
+		memcpy(n_array, m_array, sizeof(int) * numSpace); // Copy a block the size of of numSpace * int's from m_array into n_array
+
+		// Delete the array, and adjust the pointer.
+		delete[] m_array; 
+		m_array = n_array;
+	}
 };
 
 ///This is my new inherited class implementing an unordered integer array.
@@ -173,7 +204,7 @@ public:
 class oIntArray : public intArray
 {
 public:
-	// Constructor calling parent constructor.
+	/// Constructor calling parent constructor.
 	oIntArray(int size) : intArray(size) {};
 
 	///Override push from intArray to always keep elements sorted.
@@ -252,7 +283,7 @@ public:
 int main() {
 	cout << "Making an integer array." << endl;
 
-	intArray myArray = intArray(6);
+	intArray myArray = intArray(200000);
 	myArray.listItems();
 
 	cout << myArray.getSize() << endl;
@@ -264,14 +295,18 @@ int main() {
 	myArray.push(42);
 	myArray.push(50);
 	myArray.push(13);
+	for (int i = myArray.getSize(); i < 100000; ++i)
+	{
+		myArray.push(i);
+	}
 	
 	myArray.push(7);
 
 	cout << myArray.getSize() << endl;
-	myArray.listItems();
+	//myArray.listItems();
 
 	myArray.remove(1);
-	myArray.listItems();
+	//myArray.listItems();
 
 	cout << "Making an unordered integer array." << endl;
 	uIntArray uArray = uIntArray(6);
@@ -322,6 +357,28 @@ int main() {
 	oArray.listItems();
 	oArray.push(78);
 	oArray.listItems();
+
+	cout << "Trying to resize array." << endl;
+	myArray.push(100);
+	cout << myArray.getMaxSize() << endl;
+	//myArray.listItems();
+	myArray.resize(8);
+	cout << myArray.getMaxSize() << endl;
+	//myArray.listItems();
+	myArray.push(777);
+	myArray.listItems();
+	cout << myArray.getSize() << endl;
+
+	cout << "Trying to resize a child array." << endl;
+	uArray.listItems();
+	cout << uArray.getMaxSize() << endl;
+	uArray.resize(5);
+	uArray.listItems();
+	cout << uArray.getSize() << endl;
+	cout << uArray.getMaxSize() << endl;
+	uArray.resize(10);
+	cout << uArray.getSize() << endl;
+	cout << uArray.getMaxSize() << endl;
 
 	return 0;
 }
