@@ -150,17 +150,25 @@ public:
 
 		if (newSize < maxSize)
 		{
-			cout << "New size is smaller. Array contents may be missing after." << endl;
+			cout << "New size is smaller." << endl;
+			// If the smaller size is less than the number of elements
+			if (newSize < numElements)
+			{
+				// warn and adjust numElements.
+				cout << "Some elements will be missing." << endl;
+				numElements = newSize;
+			}
 		}
 
-		int *n_array;
-		n_array = new int[newSize];
-		memset(n_array, 0, sizeof(int) * newSize); //this sets all items in the array to 0
-		maxSize = newSize;
+		int *n_array; // Get a new pointer.
+		n_array = new int[newSize]; // Make a new array of the correct size with it.
+		memset(n_array, 0, sizeof(int) * newSize); // Sets all items in the array to 0
+		maxSize = newSize; // Adjust the maxSize
 
-		memcpy(n_array, m_array, sizeof(int) * numSpace);
+		memcpy(n_array, m_array, sizeof(int) * numSpace); // Copy a block the size of of numSpace * int's from m_array into n_array
 
-		delete[] m_array;
+		// Delete the array, and adjust the pointer.
+		delete[] m_array; 
 		m_array = n_array;
 	}
 };
@@ -196,7 +204,7 @@ public:
 class oIntArray : public intArray
 {
 public:
-	// Constructor calling parent constructor.
+	/// Constructor calling parent constructor.
 	oIntArray(int size) : intArray(size) {};
 
 	///Override push from intArray to always keep elements sorted.
@@ -360,6 +368,17 @@ int main() {
 	myArray.push(777);
 	myArray.listItems();
 	cout << myArray.getSize() << endl;
+
+	cout << "Trying to resize a child array." << endl;
+	uArray.listItems();
+	cout << uArray.getMaxSize() << endl;
+	uArray.resize(5);
+	uArray.listItems();
+	cout << uArray.getSize() << endl;
+	cout << uArray.getMaxSize() << endl;
+	uArray.resize(10);
+	cout << uArray.getSize() << endl;
+	cout << uArray.getMaxSize() << endl;
 
 	return 0;
 }

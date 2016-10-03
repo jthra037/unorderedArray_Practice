@@ -29,7 +29,7 @@
     <ClCompile Include="stdafx.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="unordered_arrays.cpp">
+    <ClCompile Include="homebrew_arrays.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
