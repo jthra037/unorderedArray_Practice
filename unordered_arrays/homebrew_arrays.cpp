@@ -58,20 +58,24 @@ public:
 	}
 
 	///Default push, puts the element to be inserted in the last position of array
-	///if there is space.
-	void push(int val)
+	///if there is space. Dynamically resizes if array is full.
+	void push(int val, int resizeMod = 1)
 	{
 		assert(m_array != NULL); //No null pointers.
 
 		if (numElements >= maxSize) // If the array is full
 		{
-			cout << "Array full. Item not inserted." << endl;
+			if (resizeMod == 0)
+			{
+				cout << "Array full. Not inserted." << endl;
+				return;
+			}
+			else
+				resize(maxSize + resizeMod);
 		}
-		else
-		{
-			m_array[numElements] = val; // or set value in the last position
-			numElements++; //and increment that position.
-		}
+
+		m_array[numElements] = val; // or set value in the last position
+		numElements++; //and increment that position.
 	}
 
 	///Removes the last item that was in the array
@@ -208,16 +212,23 @@ public:
 	oIntArray(int size) : intArray(size) {};
 
 	///Override push from intArray to always keep elements sorted.
-	void push(int val)
+	void push(int val, int resizeMod = 1)
 	{
 		assert(m_array != NULL); //No null pointers.
 
 		if (numElements >= maxSize) // If the array is full
 		{
-			cout << "Array full. Item not inserted." << endl;
-		}
-		// Else if array has nothing in it.
-		else if (numElements == 0)
+			if (resizeMod == 0)
+			{
+				cout << "Array full. Item not inserted." << endl;
+				return;
+			}
+			else
+				resize(maxSize + resizeMod);
+		}		
+		
+		// If array has nothing in it
+		if (numElements == 0)
 		{
 			m_array[numElements] = val; // set value in the last position
 			numElements++; //and increment that position.
@@ -295,14 +306,16 @@ int main() {
 	myArray.push(42);
 	myArray.push(50);
 	myArray.push(13);
-	for (int i = myArray.getSize(); i < 100000; ++i)
+	for (int i = myArray.getSize(); i < myArray.getMaxSize(); ++i)
 	{
 		myArray.push(i);
 	}
 	
 	myArray.push(7);
 
-	cout << myArray.getSize() << endl;
+	cout << myArray.getSize()
+		<< " / " << myArray.getMaxSize()
+		<<endl;
 	//myArray.listItems();
 
 	myArray.remove(1);
@@ -322,9 +335,11 @@ int main() {
 	uArray.push(50);
 	uArray.push(13);
 	
-	uArray.push(7);
+	uArray.push(7, 0);
 
-	cout << uArray.getSize() << endl;
+	cout << uArray.getSize()
+		<< " / " << uArray.getMaxSize() 
+		<< endl;
 	uArray.listItems();
 
 	uArray.remove(1);
@@ -344,9 +359,11 @@ int main() {
 	oArray.push(50);
 	oArray.push(13);
 
-	oArray.push(7);
+	oArray.push(7, 5);
 
-	cout << oArray.getSize() << endl;
+	cout << oArray.getSize()
+		<< "/ " << oArray.getMaxSize()
+		<< endl;
 	oArray.listItems();
 
 	oArray.remove(1);
