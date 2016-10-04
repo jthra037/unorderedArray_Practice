@@ -58,20 +58,24 @@ public:
 	}
 
 	///Default push, puts the element to be inserted in the last position of array
-	///if there is space.
-	void push(int val)
+	///if there is space. Dynamically resizes if array is full.
+	void push(int val, bool safe = false)
 	{
 		assert(m_array != NULL); //No null pointers.
 
 		if (numElements >= maxSize) // If the array is full
 		{
-			cout << "Array full. Item not inserted." << endl;
+			if (safe)
+			{
+				cout << "Array full. Not inserted." << endl;
+				return;
+			}
+			else
+				resize(++maxSize);
 		}
-		else
-		{
-			m_array[numElements] = val; // or set value in the last position
-			numElements++; //and increment that position.
-		}
+
+		m_array[numElements] = val; // or set value in the last position
+		numElements++; //and increment that position.
 	}
 
 	///Removes the last item that was in the array
@@ -208,16 +212,23 @@ public:
 	oIntArray(int size) : intArray(size) {};
 
 	///Override push from intArray to always keep elements sorted.
-	void push(int val)
+	void push(int val, bool safe = false)
 	{
 		assert(m_array != NULL); //No null pointers.
 
 		if (numElements >= maxSize) // If the array is full
 		{
-			cout << "Array full. Item not inserted." << endl;
-		}
-		// Else if array has nothing in it.
-		else if (numElements == 0)
+			if (safe)
+			{
+				cout << "Array full. Item not inserted." << endl;
+				return;
+			}
+			else
+				resize(++maxSize);
+		}		
+		
+		// If array has nothing in it
+		if (numElements == 0)
 		{
 			m_array[numElements] = val; // set value in the last position
 			numElements++; //and increment that position.
