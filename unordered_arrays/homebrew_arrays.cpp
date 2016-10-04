@@ -306,14 +306,16 @@ int main() {
 	myArray.push(42);
 	myArray.push(50);
 	myArray.push(13);
-	for (int i = myArray.getSize(); i < 100000; ++i)
+	for (int i = myArray.getSize(); i < myArray.getMaxSize(); ++i)
 	{
 		myArray.push(i);
 	}
 	
 	myArray.push(7);
 
-	cout << myArray.getSize() << endl;
+	cout << myArray.getSize()
+		<< " / " << myArray.getMaxSize()
+		<<endl;
 	//myArray.listItems();
 
 	myArray.remove(1);
@@ -333,9 +335,11 @@ int main() {
 	uArray.push(50);
 	uArray.push(13);
 	
-	uArray.push(7);
+	uArray.push(7, 0);
 
-	cout << uArray.getSize() << endl;
+	cout << uArray.getSize()
+		<< " / " << uArray.getMaxSize() 
+		<< endl;
 	uArray.listItems();
 
 	uArray.remove(1);
@@ -355,9 +359,11 @@ int main() {
 	oArray.push(50);
 	oArray.push(13);
 
-	oArray.push(7);
+	oArray.push(7, 5);
 
-	cout << oArray.getSize() << endl;
+	cout << oArray.getSize()
+		<< "/ " << oArray.getMaxSize()
+		<< endl;
 	oArray.listItems();
 
 	oArray.remove(1);
