@@ -59,19 +59,19 @@ public:
 
 	///Default push, puts the element to be inserted in the last position of array
 	///if there is space. Dynamically resizes if array is full.
-	void push(int val, int resizeMod = 1)
+	void push(int val, int resizeMod = 1) // Optional parameter to resize defaults to 1
 	{
 		assert(m_array != NULL); //No null pointers.
 
 		if (numElements >= maxSize) // If the array is full
 		{
-			if (resizeMod == 0)
+			if (resizeMod == 0) // Don't resize if mod is 0
 			{
 				cout << "Array full. Not inserted." << endl;
 				return;
 			}
 			else
-				resize(maxSize + resizeMod);
+				resize(maxSize + resizeMod); // Resize by the amount of the modifier
 		}
 
 		m_array[numElements] = val; // or set value in the last position
@@ -212,19 +212,19 @@ public:
 	oIntArray(int size) : intArray(size) {};
 
 	///Override push from intArray to always keep elements sorted.
-	void push(int val, int resizeMod = 1)
+	void push(int val, int resizeMod = 1) // Optional parameter to resize defaults to 1
 	{
 		assert(m_array != NULL); //No null pointers.
 
 		if (numElements >= maxSize) // If the array is full
 		{
-			if (resizeMod == 0)
+			if (resizeMod == 0) // Don't resize if mod is 0
 			{
 				cout << "Array full. Item not inserted." << endl;
 				return;
 			}
 			else
-				resize(maxSize + resizeMod);
+				resize(maxSize + resizeMod); // Resize by the amount of the modifier
 		}		
 		
 		// If array has nothing in it
